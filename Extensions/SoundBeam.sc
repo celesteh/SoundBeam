@@ -58,6 +58,8 @@ SoundBeamNetworkTable {
 		table.put("gstatic\.com", \google);
 		table.put("[^ \t\r\n\v\f\.]*\.google[:word:]*\.com", \google);
 		table.put("[^ \t\r\n\v\f\.]*\.googleapis.com", \google);
+        table.put("doubleclick.net", \google); // owned by google http://googlepress.blogspot.co.uk/2007/04/google-to-acquire-doubleclick_13.html
+
 		//ajax.googleapis.com
 		//googletagservices.com
 		// googleadservices.com
@@ -82,7 +84,6 @@ SoundBeamNetworkTable {
 		Advertisers
 
 		adnxs.com
-		doubleclick.net
 		quantserve.com
 		amazon-adsystem.com
 		*/

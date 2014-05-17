@@ -2,8 +2,8 @@
 
 var sbeam;
 
-sbeam = SoundBeam.new("les"); // make a new object to use broadcast messaging
-
+//sbeam = SoundBeam.new("les"); // make a new object to use broadcast messaging
+sbeam = SoundBeam.newOSCGroups("/home/celesteh/Documents/code/osc/oscgroups/bin/OscGroupClient", "192.168.0.9", "les", "foo");
 
 // set an action function for third party sites (ones you haven't clicked on
 // the message gets a SoundBeamSite as the argument
@@ -23,7 +23,6 @@ sbeam.socialEventAction = {|site| }; // another BiLE member has hit a third part
 
 
 )
-
 
 
 

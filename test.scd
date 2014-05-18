@@ -3,11 +3,13 @@
 var sbeam;
 
 //sbeam = SoundBeam.new("les"); // make a new object to use broadcast messaging
-sbeam = SoundBeam.newOSCGroups("/home/celesteh/Documents/code/osc/oscgroups/bin/OscGroupClient", "192.168.0.9", "les", "foo");
+b = SoundBeam.newOSCGroups("/home/celesteh/Documents/code/osc/oscgroups/bin/OscGroupClient", "192.168.0.9", "les", "foo");
 
 // set an action function for third party sites (ones you haven't clicked on
 // the message gets a SoundBeamSite as the argument
-sbeam.thirdPartyAction = {|site|
+b.thirdPartyAction = {|site, time|
+
+	site.toString.postln;
 
 	((site.accessCount  % 10) == 0).if({
 		("%: %\n").postf(site.accessCount, site.toString);
@@ -15,21 +17,21 @@ sbeam.thirdPartyAction = {|site|
 };
 
 // you can also set:
-sbeam.hitAction = { |site| }; // for a site you have clicked on but has served no extra content
-sbeam.bothAction = {|site| }; // for a site you've clieck and has served extra content such as images
+b.hitAction = { |site, time| site.postln}; // for a site you have clicked on but has served no extra content
+b.bothAction = {|site, time| site.postln}; // for a site you've clieck and has served extra content such as images
 
 // for the social aspect of the piece:
-sbeam.socialEventAction = {|site| }; // another BiLE member has hit a third party site you have also encountered
+b.socialEventAction = {|site, time| site.postln}; // another BiLE member has hit a third party site you have also encountered
 
 
 )
 
 
 
+NetAddr.langPort
 
 
-
-
+OSCFunc.trace
 
 
 

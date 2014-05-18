@@ -179,19 +179,19 @@ SoundBeam {
 
 		// Notifications from the plugin
 		OSCFunc({|msg, time, addr, recvPort|
-			this.pr_action(\both, msg);
+			this.pr_action(\both, msg, time);
 		}, '/site/both');
 
 		OSCFunc({|msg, time, addr, recvPort|
-			this.pr_action(\hit, msg);
+			this.pr_action(\hit, msg, time);
 		}, '/site/site');
 
 		OSCFunc({|msg, time, addr, recvPort|
-			this.pr_action(\thirdParty, msg);
+			this.pr_action(\thirdParty, msg, time);
 		}, '/site/thirdparty');
 
 
-		netapi.add('thirdparty', {arg site, who;
+		netapi.add('thirdparty', {arg site, who, time;
 
 			var site_data;
 			(who.asSymbol != netapi.nick.asSymbol).if ({ // don't react to my own messages
@@ -200,7 +200,7 @@ SoundBeam {
 
 					Task({
 						waitTime.rand.wait;
-						this.socialEventAction.value(site_data);
+						this.socialEventAction.value(site_data, time);
 					}).play
 				});
 			});
@@ -215,7 +215,7 @@ SoundBeam {
 		^hits.at(site.asSymbol).notNil;
 	}
 
-	pr_action {|type, msg|
+	pr_action {|type, msg, time|
 		var func, site, cons, cookies, net;
 		var shouldSave, notify, site_data;
 
@@ -250,12 +250,12 @@ SoundBeam {
 		});
 
 		(func.notNil && site_data.notNil).if({
-			func.value(site_data);
+			func.value(site_data, time);
 		});
 
 
 		notify.if({
-			netapi.sendMsg('thirdparty', site, netapi.nick);
+			netapi.sendMsg('thirdparty', site, netapi.nick, time);
 		});
 	}
 

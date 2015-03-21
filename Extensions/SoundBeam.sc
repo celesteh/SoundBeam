@@ -156,7 +156,11 @@ SoundBeam {
 
 		var netapi;
 
-		netapi = NetAPI.broadcast(nick);
+		nick.isKindOf(NetAPI).if ({
+			netapi = nick
+			}, {
+				netapi = NetAPI.broadcast(nick);
+		});
 		^super.new.init(netapi);
 	}
 

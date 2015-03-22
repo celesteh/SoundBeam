@@ -2,7 +2,7 @@ SoundBeamSite {
 
 	var <site, // the url
 	<numberOfConnectedSites, // number of sites connected to this one
-	<accessCount, // number of times we've gotten a message about this site
+	<>accessCount, // number of times we've gotten a message about this site
 	<cookieCount, // how many cookies?
 	<clickedIntentionallyCount, // how many times have we actually ASKED for this site?
 	<network, // SoundBeamNetworkTable.networks lists available values for this
@@ -198,13 +198,17 @@ SoundBeam {
 		netapi.add('thirdparty', {arg site, who, time;
 
 			var site_data;
+			//"3rd".postln;
 			(who.asSymbol != netapi.nick.asSymbol).if ({ // don't react to my own messages
+				//"bile".postln;
 				site_data = hits.at(site);
 				site_data.notNil.if({
 
 					Task({
 						waitTime.rand.wait;
-						this.socialEventAction.value(site_data, time);
+						this.socialEventAction.notNil.if({
+							this.socialEventAction.value(site_data, time);
+						});
 					}).play
 				});
 			});
